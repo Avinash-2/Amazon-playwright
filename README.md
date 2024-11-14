@@ -1,4 +1,3 @@
-/*************  ✨ Codeium Command 🌟  *************/
 # Amazon-playwright
 
 ## Overview
