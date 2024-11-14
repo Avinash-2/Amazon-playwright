@@ -1,0 +1,11 @@
+{
+    "products": [
+      {
+        "name": "Apple iPhone 16 Pro Max",
+        "variants": [
+          { "storage": "256GB", "color": "Natural titanium" }
+        ]
+      }
+    ]
+  }
+  
