@@ -1,0 +1,13 @@
+{
+    "products": [
+      {
+        "name": "Apple iPhone 16 Pro Max",
+        "variants": [
+          { "storage": "256 GB", "color": "Natural Titanium", "price": "₹1,44,900.00" },
+          { "storage": "512 GB", "color": "White Titanium", "price": "₹1,64,900.00" },
+          { "storage": "1 TB", "color": "Black Titanium", "price": "₹1,84,900.00" }
+        ]
+      }
+    ]
+  }
+  
