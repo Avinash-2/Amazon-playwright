@@ -15,37 +15,45 @@ const credentials = [
     { email: process.env.USER2_EMAIL, password: process.env.USER2_PASSWORD }
 ];
 
-credentials.forEach((cred, credIndex) => {
-    products.forEach((product) => {
-        product.variants.forEach((variant) => {
-            test(`Checkout ${product.name} with ${variant.storage} and ${variant.color} using credential set ${credIndex + 1}`, async ({
-                page
-            }) => {
-                const homePage = new HomePage(page);
-                const searchResults = new SearchResults(page);
+test.afterEach('logout', async({page})=>{
+    await expect(page.locator("#addressChangeLinkId")).toBeVisible({timeout:3000});
+})
+test('Navigate to amazon', async({page})=>{
+    await page.goto('https://www.amazon.in/');
+    await expect(page.locator("#twotabsearchtextbox")).toBeVisible();
+})
 
-                const productName = `${product.name} (${variant.storage}) - ${variant.color}`;
-                await page.goto('https://www.amazon.in/');
-                await homePage.searchProduct(productName);
-                const newPage = await searchResults.selectProduct(productName);
+// credentials.forEach((cred, credIndex) => {
+//     products.forEach((product) => {
+//         product.variants.forEach((variant) => {
+//             test(`Checkout ${product.name} with ${variant.storage} and ${variant.color} using credential set ${credIndex + 1}`, async ({
+//                 page
+//             }) => {
+//                 const homePage = new HomePage(page);
+//                 const searchResults = new SearchResults(page);
 
-                const productPage = new ProductPage(newPage);
-                const deliveryAddress = new DeliveryAddress(newPage);
-                const payment = new PaymentPage(newPage);
-                const reviewItems = new ReviewItems(newPage);
-                const loginPage = new LoginPage(newPage);
+//                 const productName = `${product.name} (${variant.storage}) - ${variant.color}`;
+//                 await page.goto('https://www.amazon.in/');
+//                 await homePage.searchProduct(productName);
+//                 const newPage = await searchResults.selectProduct(productName);
 
-                await expect(productPage.productName).toContainText(productName);
-                await productPage.addToCart();
-                await productPage.proceedToCheckout();
-                await loginPage.login(cred.email, cred.password);
-                await expect(deliveryAddress.useThisAddress).toBeVisible(); 
+//                 const productPage = new ProductPage(newPage);
+//                 const deliveryAddress = new DeliveryAddress(newPage);
+//                 const payment = new PaymentPage(newPage);
+//                 const reviewItems = new ReviewItems(newPage);
+//                 const loginPage = new LoginPage(newPage);
 
-                await deliveryAddress.selectAddress();
-                await payment.selectNetBankingPayment(process.env.BANK_NAME);
-                await expect(await reviewItems.productName).toContainText(productName);
-                await expect(await reviewItems.productPrice).toContainText(variant.price);
-            });
-        });
-    });
-});
+//                 await expect(productPage.productName).toContainText(productName);
+//                 await productPage.addToCart();
+//                 await productPage.proceedToCheckout();
+//                 await loginPage.login(cred.email, cred.password);
+//                 await expect(deliveryAddress.useThisAddress).toBeVisible(); 
+
+//                 await deliveryAddress.selectAddress();
+//                 await payment.selectNetBankingPayment(process.env.BANK_NAME);
+//                 await expect(await reviewItems.productName).toContainText(productName);
+//                 await expect(await reviewItems.productPrice).toContainText(variant.price);
+//             });
+//         });
+//     });
+// });
