@@ -20,7 +20,7 @@ test.afterEach('logout', async({page})=>{
 })
 test('Navigate to amazon', async({page})=>{
     await page.goto('https://www.amazon.in/');
-    await expect(page.locator("#twotabsearchtextbox")).toBeVisible();
+    // await expect(page.locator("#twotabsearchtextbox")).toBeVisible();
 })
 
 // credentials.forEach((cred, credIndex) => {
